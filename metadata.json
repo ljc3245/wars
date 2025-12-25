@@ -1,0 +1,5 @@
+{
+  "name": "SquareWars - 斜方围点",
+  "description": "一个精美的策略棋盘游戏。通过在 15x15 网格上落子，构成正方形（支持斜向）来得分，率先达到 100 分者胜。",
+  "requestFramePermissions": []
+}
