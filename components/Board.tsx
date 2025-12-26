@@ -25,7 +25,7 @@ const Board = forwardRef<BoardHandle, BoardProps>(({ board, gridSize, onPlacePie
   const COLORS = {
     RED: '#EF5777',
     BLUE: '#54A0FF',
-    DOT: isDarkMode ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.12)',
+    DOT: isDarkMode ? 'rgba(255,255,255,0.25)' : 'rgba(0,0,0,0.15)',
     BG: isDarkMode ? '#1e293b' : '#FFFFFF'
   };
 
@@ -63,7 +63,8 @@ const Board = forwardRef<BoardHandle, BoardProps>(({ board, gridSize, onPlacePie
     for (let i = 0; i < gridSize; i++) {
       for (let j = 0; j < gridSize; j++) {
         ctx.beginPath();
-        ctx.arc(padding + i * cell, padding + j * cell, 2, 0, Math.PI * 2);
+        // 10x10 网格点稍微大一点更好看
+        ctx.arc(padding + i * cell, padding + j * cell, 3, 0, Math.PI * 2);
         ctx.fill();
       }
     }

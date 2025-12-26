@@ -6,7 +6,7 @@ import Controls from './components/Controls';
 import Toast from './components/Toast';
 import LoadModal from './components/LoadModal';
 
-const GRID_SIZE = 15;
+const GRID_SIZE = 10;
 const TARGET_SCORE = 100;
 const AUTO_SAVE_KEY = 'squareWars_auto_save';
 const SAVES_LIST_KEY = 'squareWars_slots';
@@ -51,7 +51,8 @@ const App: React.FC = () => {
     if (autoSaved) {
       try {
         const parsed = JSON.parse(autoSaved);
-        if (parsed.history && parsed.history.length > 0) {
+        // 简单校验存档网格大小是否匹配，防止崩溃
+        if (parsed.board && parsed.board.length === GRID_SIZE && parsed.history && parsed.history.length > 0) {
           setGameState(parsed);
           showToast('已自动恢复进度', 'info');
         }
@@ -238,6 +239,11 @@ const App: React.FC = () => {
   };
 
   const loadFromSlot = (slot: SaveSlot) => {
+    // 检查快照的网格大小是否匹配
+    if (slot.data.board.length !== GRID_SIZE) {
+      showToast('无法载入：存档网格大小不兼容', 'info');
+      return;
+    }
     setGameState(slot.data);
     setScorePopups([]);
     setIsLoadModalOpen(false);
@@ -354,7 +360,7 @@ const App: React.FC = () => {
       </div>
 
       <p className={`mt-10 text-[10px] uppercase tracking-[0.3em] font-medium transition-colors ${isDarkMode ? 'text-slate-500' : 'text-gray-400/80'}`}>
-        SquareWars v2.7 • Night Mode Enhanced
+        SquareWars v2.8 • Grid Size Updated
       </p>
     </div>
   );
